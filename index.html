@@ -57,7 +57,7 @@
         /* Top Header Bar */
         #header-bar {
             position: fixed; top: 0; left: 0; width: 100%;
-            background-color: #ffffff; padding: 12px 0; overflow: hidden;
+            background-color: #ffffff; padding: 8px 0; overflow: hidden;
             white-space: nowrap; z-index: 1000; border-bottom: 3px solid #000000;
             box-shadow: 0 4px 15px rgba(0,0,0,0.06);
         }
@@ -68,10 +68,10 @@
         }
 
         .name-item {
-            display: block; font-family: var(--font-main);
-            font-size: 1.3em; font-weight: 900; padding: 0 35px;
-            letter-spacing: 2.5px; color: #ff9cce;
-            -webkit-text-stroke: 1.3px #000000; text-transform: uppercase;
+            display: block; font-family: var(--font-bubbly);
+            font-size: 1.1em; font-weight: 700; padding: 0 30px;
+            letter-spacing: 2px; color: #000000;
+            text-transform: uppercase;
         }
 
         @keyframes scrollLoop {
@@ -83,19 +83,18 @@
         .step-container {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             min-height: 100vh; width: 100%; position: relative; z-index: 5;
-            padding: 100px 20px 60px 20px; transition: opacity 0.5s ease;
+            padding: 90px 20px 60px 20px; transition: opacity 0.5s ease;
         }
 
         /* STEP 1 SETUP */
         #hero-platform-wrapper {
             position: relative; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; height: 260px; width: 100%; max-width: 500px;
+            align-items: center; justify-content: center; height: 240px; width: 100%; max-width: 500px;
         }
 
         .hero-image {
-            position: absolute; bottom: 70px; width: 360px; max-width: 85%;
-            transform-origin: center bottom;
-            animation: rotateCar 15s linear infinite, bounceCar 2.2s ease-in-out infinite alternate;
+            position: absolute; bottom: 35px; width: 320px; max-width: 85%;
+            animation: floatHover 2.5s ease-in-out infinite alternate;
             z-index: 3; object-fit: contain;
             filter: drop-shadow(0 8px 16px rgba(0,0,0,0.12));
         }
@@ -112,14 +111,9 @@
             border: 2px dashed #ff9cce; border-radius: 50%;
         }
 
-        @keyframes rotateCar {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
-        }
-
-        @keyframes bounceCar {
-            0%, 100% { transform: translateY(0) rotateY(var(--rotation-value, 0deg)); }
-            50% { transform: translateY(-10px) rotateY(var(--rotation-value, 0deg)); }
+        @keyframes floatHover {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
         }
 
         .bubbly-text-content {
@@ -353,18 +347,7 @@
         }
         initNameScroll();
 
-        // 2. Car Rotation Calculation
-        const carElement = document.getElementById('car-element');
-        if (carElement) {
-            const duration = 15;
-            setInterval(() => {
-                const now = performance.now() / 1000 % duration;
-                const rotation = (now / duration) * 360;
-                carElement.style.setProperty('--rotation-value', `${rotation}deg`);
-            }, 50);
-        }
-
-        // 3. Floating Flowers Generator
+        // 2. Floating Flowers Generator
         function createFlowers(count) {
             const layer = document.getElementById('flower-layer');
             layer.innerHTML = '';
@@ -380,7 +363,7 @@
         }
         createFlowers(12);
 
-        // 4. Step Transitions
+        // 3. Step Transitions
         function goToStep2() {
             document.getElementById('step1').style.display = 'none';
             document.getElementById('header-bar').style.display = 'none';
@@ -388,7 +371,7 @@
             document.getElementById('step2').style.display = 'flex';
         }
 
-        // 5. Evasive NO Button Logic
+        // 4. Evasive NO Button Logic
         function dodgeNoButton() {
             const btnNo = document.getElementById('btn-no');
             const arena = document.getElementById('arena');
@@ -403,7 +386,7 @@
             btnNo.style.transform = `translate(${randomX}px, ${randomY}px)`;
         }
 
-        // 6. Modal Handlers
+        // 5. Modal Handlers
         function openTermsModal() {
             document.getElementById('terms-modal').style.display = 'flex';
         }
@@ -420,7 +403,7 @@
             initDVDBounce();
         }
 
-        // 7. DVD Bouncing Photos Logic (Slow Speed)
+        // 6. DVD Bouncing Photos Logic (Slow Speed)
         function initDVDBounce() {
             const container = document.getElementById('bouncing-container');
             container.innerHTML = '';
@@ -448,7 +431,6 @@
                     element: img,
                     x: Math.random() * (boxWidth - size),
                     y: Math.random() * (boxHeight - size),
-                    // Velocity drastically reduced for smooth slow movement
                     vx: (Math.random() < 0.5 ? 1 : -1) * (0.4 + Math.random() * 0.3),
                     vy: (Math.random() < 0.5 ? 1 : -1) * (0.4 + Math.random() * 0.3),
                     width: size,
